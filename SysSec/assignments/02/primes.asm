@@ -28,7 +28,6 @@ main:
     push string_choice
     call printf
 
-
     ;-------------------------------
 
     ;-------------------------------
@@ -38,27 +37,28 @@ main:
     push input_number
     call scanf
     
-    add esp, 8
-    push dword[choice]
-    push debug
-    call printf
+
+    
 
     ;-------------------------------
 
     ;-------------------------------
     ; TODO
     ; Check if user input is within valid range
-    push eax
-    mov eax, choice
-    cmp eax, 1000
+    
+    ;push eax
+    ;mov eax, [choice]
+    mov esi, [choice]
+    cmp esi, 1000
     ;Wenn input > 1k
     jg fail
     ;sonst
-    cmp eax, 2
+    cmp esi, 2
     ;wenn input kleiner 2
-    jle fail
+    jl fail
+    
 
-    pop eax
+    ;pop eax
 
     ;-------------------------------
 
@@ -96,6 +96,7 @@ success:
 fail:
     push string_error
     call printf
+    add esp, 4
 
     ;-------------------------------
 
@@ -111,7 +112,24 @@ is_prime:
     ; end of prologue
 
     ; function body
+    xor ebx, ebx
+    mov ebx,32 ;number 32 to ebx
+L1: ;loop Anfang
+    ;Module Rechnung, edx = 14 % 6, eax = 14 / 6
+    mov edx, 0        ; clear dividend
+    mov eax, 0x14   ; dividend
+    mov ecx, 0x6    ; divisor
+    div ecx         ; EAX = 0x2, EDX = 0x1
 
+
+    ;push edx ;first parameter
+    ;push choice ;second parameter
+    ;call printf ;call inbuilt printf statement for outputting
+
+    dec ebx ;decrement the value of ebx by 1
+    jnz L1 ;if not equal to zero go to L1 
+;loop Ende
+    ;add esp,256    ;clear all the stack
 
 
     ; end of function body
