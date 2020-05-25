@@ -6,7 +6,6 @@ string_success: db "%d is prime.", 0xa, 0
 string_failure: db "%d is not prime.", 0xa, 0
 string_error: db "Invalid input. Exiting...", 0xa, 0
 input_number: db "%d", 0
-debug: db "Your input was %d", 0xa, 0
 
 ; ---- DO NOT MODIFY THE BSS SECTION ----
 section .bss
@@ -27,6 +26,7 @@ main:
     ; Ask user for input of a number (use string_choice)
     push string_choice
     call printf
+    add esp, 4
 
     ;-------------------------------
 
@@ -36,9 +36,7 @@ main:
     push choice
     push input_number
     call scanf
-    
-
-    
+    add esp, 8
 
     ;-------------------------------
 
@@ -54,11 +52,9 @@ main:
     jg fail
     ;sonst
     cmp esi, 2
-    ;wenn input kleiner 2
+    ;wenn input < 2
     jl fail
     
-
-    ;pop eax
 
     ;-------------------------------
 
@@ -75,6 +71,7 @@ main:
     je success
 
     ; If number is not prime, print failure message
+
     push esi
     push string_failure
     call printf
@@ -97,6 +94,7 @@ fail:
     push string_error
     call printf
     add esp, 4
+    ret
 
     ;-------------------------------
 
@@ -112,31 +110,50 @@ is_prime:
     ; end of prologue
 
     ; function body
+    
+    xor ecx, ecx
     xor ebx, ebx
-    mov ebx,32 ;number 32 to ebx
-L1: ;loop Anfang
-    ;Module Rechnung, edx = 14 % 6, eax = 14 / 6
-    mov edx, 0        ; clear dividend
-    mov eax, 0x14   ; dividend
-    mov ecx, 0x6    ; divisor
-    div ecx         ; EAX = 0x2, EDX = 0x1
+    xor edx, edx
+
+    mov eax, dword[choice]
+    mov ebx, dword[choice]
+    mov esi, dword[choice]
+
+    cmp ebx, 2
+    je isprime
+
+    mov ecx, 2          ;Counter for loop
+    cmp ecx, ebx
+    je isprime
 
 
-    ;push edx ;first parameter
-    ;push choice ;second parameter
-    ;call printf ;call inbuilt printf statement for outputting
+L1: 
+    mov edx, 0
+    mov eax, ebx
+    div ecx
 
-    dec ebx ;decrement the value of ebx by 1
-    jnz L1 ;if not equal to zero go to L1 
-;loop Ende
-    ;add esp,256    ;clear all the stack
-
-
+    cmp edx, 0      ;Ist Input% counter == 0?
+    jne L2
+    ;je fail
+    mov eax, 0
+    leave
+    ret
+L2:                 ; Wenn == 0 dann nicht prim
+    inc ecx
+    cmp ecx, ebx
+    jl L1
+    
+    
+isprime:
+    mov eax, 1
+    
     ; end of function body
 
     ; epilogue
-    mov esp, ebp
-    pop ebp
+
+    
+    
+    leave
     ret
     ; end of epilogue / end of function
 ;-------------------------------
