@@ -1,22 +1,22 @@
 #include <stdio.h>
 
 
-int g(int v2, int v3)
+int g(int v1, int v2)
 {
-    for (int i = 0; i < v3; i++)
+    for (int i = 0; i < v2; i++)
     {
-        v3 += v2;
+        v1 += v2;
     }
-    return v3;
+    return v2;
 }
 
 
 int f(int v1, int v2, int v3)
 {
     int tmp, res;
-    if(v2 = 0) tmp= v2 + v3;
-    else tmp= g(v2, v3);
-    return res = v3 + tmp; //v3 noch unklar  
+    if(v1 = 0) tmp= v1 + v2;
+    else tmp= g(v1, v2);
+    return res = v3 + tmp; 
 }
 
 
