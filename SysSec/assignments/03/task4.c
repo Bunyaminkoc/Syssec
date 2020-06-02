@@ -7,17 +7,17 @@ int g(int v1, int v2)
     {
         v1 += v2;
     }
-    return v2;
+    return v1;
 }
 
 
 int f(int v1, int v2, int v3)
 {
     int tmp, res;
-    if(v1 = 0) tmp= v1 + v2;
-    else tmp= g(v1, v2);
+    tmp = !v1 ? (v2 + v3) : g(v1,v2);
     return res = v3 + tmp; 
 }
+
 
 
 int main()
