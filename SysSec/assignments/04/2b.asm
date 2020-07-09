@@ -1,5 +1,5 @@
 section .data
-    filename db 'greetings', 0x0
+    filename db '/home/user/greetings', 0x0
     content db 'himum!', 0x0
 
 section .text

